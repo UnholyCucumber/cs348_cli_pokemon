@@ -1,0 +1,7 @@
+
+javac solutions/project348/EditPokemon.java -d .
+javac solutions/project348/ManageParty.java -d .
+javac solutions/project348/SearchPokemon.java -d .
+javac solutions/project348/CreateTrainer.java -d .
+javac solutions/project348/EncounterPokemon.java -d .
+javac solutions/project348/Main.java -d .

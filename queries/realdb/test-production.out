@@ -1,0 +1,266 @@
+INSERT INTO Trainer (id, name, gender) VALUES (1, 'foo', 'M')
+DB20000I  The SQL command completed successfully.
+
+INSERT INTO OwnedPokemon (trainer_id, pkmn_id, nickname, in_team, m1, ability) VALUES (1, 1, 'bar', True, 'Tackle', 'Overgrow')
+DB20000I  The SQL command completed successfully.
+
+INSERT INTO OwnedPokemon (trainer_id, pkmn_id, nickname, in_team, m1, ability) VALUES (1, 1, 'bar2', False, 'Tackle', 'Overgrow')
+DB20000I  The SQL command completed successfully.
+
+INSERT INTO OwnedPokemon (trainer_id, pkmn_id, nickname, in_team, m1, ability) VALUES (1, 1, '', False, 'Tackle', 'Overgrow')
+DB20000I  The SQL command completed successfully.
+
+INSERT INTO OwnedPokemon (trainer_id, pkmn_id, nickname, in_team, m1, m2, m3, m4, ability) VALUES (1, 1, 'bar3', False, 'Tackle', 'Growl', 'Vine Whip', 'Poison Powder','Overgrow')
+DB20000I  The SQL command completed successfully.
+
+SELECT trainer_id, nickname, Pokemon.name as name, m1, ability FROM OwnedPokemon JOIN Pokemon ON OwnedPokemon.pkmn_id=Pokemon.id WHERE trainer_id=1 AND in_team=True
+
+TRAINER_ID  NICKNAME     NAME         M1                   ABILITY     
+----------- ------------ ------------ -------------------- ------------
+          1 bar          Bulbasaur    Tackle               Overgrow    
+
+  1 record(s) selected.
+
+
+SELECT trainer_id, nickname, Pokemon.name as name, m1, ability FROM OwnedPokemon JOIN Pokemon ON OwnedPokemon.pkmn_id=Pokemon.id WHERE trainer_id=1 AND in_team=False
+
+TRAINER_ID  NICKNAME     NAME         M1                   ABILITY     
+----------- ------------ ------------ -------------------- ------------
+          1 bar2         Bulbasaur    Tackle               Overgrow    
+          1              Bulbasaur    Tackle               Overgrow    
+          1 bar3         Bulbasaur    Tackle               Overgrow    
+
+  3 record(s) selected.
+
+
+SELECT m1, m2, m3, m4, ability, nickname FROM OwnedPokemon
+
+M1                   M2                   M3                   M4                   ABILITY      NICKNAME    
+-------------------- -------------------- -------------------- -------------------- ------------ ------------
+Tackle               -                    -                    -                    Overgrow     bar         
+Tackle               -                    -                    -                    Overgrow     bar2        
+Tackle               -                    -                    -                    Overgrow                 
+Tackle               Growl                Vine Whip            Poison Powder        Overgrow     bar3        
+
+  4 record(s) selected.
+
+
+Update OwnedPokemon Set m1 = 'Seed Bomb', ability = 'Chlorophyll', nickname='bar3' WHERE nickname = 'bar'
+DB20000I  The SQL command completed successfully.
+
+Select nickname, m1, ability FROM OwnedPokemon WHERE nickname ='bar3'
+
+NICKNAME     M1                   ABILITY     
+------------ -------------------- ------------
+bar3         Seed Bomb            Chlorophyll 
+bar3         Tackle               Overgrow    
+
+  2 record(s) selected.
+
+
+Update OwnedPokemon Set in_team = False WHERE nickname = 'bar3'
+DB20000I  The SQL command completed successfully.
+
+Select nickname from OwnedPokemon WHERE in_team = False
+
+NICKNAME    
+------------
+bar3        
+bar2        
+            
+bar3        
+
+  4 record(s) selected.
+
+
+DELETE FROM Trainer WHERE name='foo'
+DB20000I  The SQL command completed successfully.
+
+SELECT id, name, type1, type2, category, capture_rate, hp, atk FROM Pokemon WHERE UPPER(name) = UPPER('pikachu')
+
+ID     NAME         TYPE1        TYPE2        CATEGORY                  CAPTURE_RATE HP     ATK   
+------ ------------ ------------ ------------ ------------------------- ------------ ------ ------
+    25 Pikachu      Electric     -            Mouse Pokémon                      190     35     55
+
+  1 record(s) selected.
+
+
+SELECT id, name, type1, type2, category, capture_rate, hp, atk FROM Pokemon WHERE ID = 25
+
+ID     NAME         TYPE1        TYPE2        CATEGORY                  CAPTURE_RATE HP     ATK   
+------ ------------ ------------ ------------ ------------------------- ------------ ------ ------
+    25 Pikachu      Electric     -            Mouse Pokémon                      190     35     55
+
+  1 record(s) selected.
+
+
+SELECT id, name, type1, type2, category, capture_rate, hp, atk FROM Pokemon WHERE UPPER(type1) = UPPER('grass') or UPPER(type2) = UPPER('grass')
+
+ID     NAME         TYPE1        TYPE2        CATEGORY                  CAPTURE_RATE HP     ATK   
+------ ------------ ------------ ------------ ------------------------- ------------ ------ ------
+     1 Bulbasaur    Grass        Poison       Seed Pokémon                        45     45     49
+     2 Ivysaur      Grass        Poison       Seed Pokémon                        45     60     62
+     3 Venusaur     Grass        Poison       Seed Pokémon                        45     80     82
+    43 Oddish       Grass        Poison       Weed Pokémon                       255     45     50
+    44 Gloom        Grass        Poison       Weed Pokémon                       120     60     65
+    45 Vileplume    Grass        Poison       Flower Pokémon                      45     75     80
+    46 Paras        Bug          Grass        Mushroom Pokémon                   190     35     70
+    47 Parasect     Bug          Grass        Mushroom Pokémon                    75     60     95
+    69 Bellsprout   Grass        Poison       Flower Pokémon                     255     50     75
+    70 Weepinbell   Grass        Poison       Flycatcher Pokémon                 120     65     90
+    71 Victreebel   Grass        Poison       Flycatcher Pokémon                  45     80    105
+   102 Exeggcute    Grass        Psychic      Egg Pokémon                         90     60     40
+   103 Exeggutor    Grass        Psychic      Coconut Pokémon                     45     95     95
+   114 Tangela      Grass        -            Vine Pokémon                        45     65     55
+   152 Chikorita    Grass        -            Leaf Pokémon                        45     45     49
+   153 Bayleef      Grass        -            Leaf Pokémon                        45     60     62
+   154 Meganium     Grass        -            Herb Pokémon                        45     80     82
+   182 Bellossom    Grass        -            Flower Pokémon                      45     75     80
+   187 Hoppip       Grass        Flying       Cottonweed Pokémon                 255     35     35
+   188 Skiploom     Grass        Flying       Cottonweed Pokémon                 120     55     45
+   189 Jumpluff     Grass        Flying       Cottonweed Pokémon                  45     75     55
+   191 Sunkern      Grass        -            Seed Pokémon                       235     30     30
+   192 Sunflora     Grass        -            Sun Pokémon                        120     75     75
+   251 Celebi       Psychic      Grass        Time Travel Pokémon                 45    100    100
+   252 Treecko      Grass        -            Wood Gecko Pokémon                  45     40     45
+   253 Grovyle      Grass        -            Wood Gecko Pokémon                  45     50     65
+   254 Sceptile     Grass        -            Forest Pokémon                      45     70     85
+   270 Lotad        Water        Grass        Water Weed Pokémon                 255     40     30
+   271 Lombre       Water        Grass        Jolly Pokémon                      120     60     50
+   272 Ludicolo     Water        Grass        Carefree Pokémon                    45     80     70
+   273 Seedot       Grass        -            Acorn Pokémon                      255     40     40
+   274 Nuzleaf      Grass        Dark         Wily Pokémon                       120     70     70
+   275 Shiftry      Grass        Dark         Wickid Pokémon                      45     90    100
+   285 Shroomish    Grass        -            Mushroom Pokémon                   255     60     40
+   286 Breloom      Grass        Fighting     Mushroom Pokémon                    90     60    130
+   315 Roselia      Grass        Poison       Thorn Pokémon                      150     50     60
+   331 Cacnea       Grass        -            Cactus Pokémon                     190     50     85
+   332 Cacturne     Grass        Dark         Scarecrow Pokémon                   60     70    115
+   345 Lileep       Rock         Grass        Sea Lily Pokémon                    45     66     41
+   346 Cradily      Rock         Grass        Barnacle Pokémon                    45     86     81
+   357 Tropius      Grass        Flying       Fruit Pokémon                      200     99     68
+   387 Turtwig      Grass        -            Tiny Leaf Pokémon                   45     55     68
+   388 Grotle       Grass        -            Grove Pokémon                       45     75     89
+   389 Torterra     Grass        Ground       Continent Pokémon                   45     95    109
+   406 Budew        Grass        Poison       Bud Pokémon                        255     40     30
+   407 Roserade     Grass        Poison       Bouquet Pokémon                     75     60     70
+   413 Wormadam     Bug          Grass        Bagworm Pokémon                     45     60     59
+   420 Cherubi      Grass        -            Cherry Pokémon                     190     45     35
+   421 Cherrim      Grass        -            Blossom Pokémon                     75     70     60
+   455 Carnivine    Grass        -            Bug Catcher Pokémon                200     74    100
+   459 Snover       Grass        Ice          Frosted Tree Pokémon               120     60     62
+   460 Abomasnow    Grass        Ice          Frosted Tree Pokémon                60     90     92
+   465 Tangrowth    Grass        -            Vine Pokémon                        30    100    100
+   470 Leafeon      Grass        -            Verdant Pokémon                     45     65    110
+   492 Shaymin      Grass        -            Gratitude Pokémon                   45    100    100
+   495 Snivy        Grass        -            Grass Snake Pokémon                 45     45     45
+   496 Servine      Grass        -            Grass Snake Pokémon                 45     60     60
+   497 Serperior    Grass        -            Regal Pokémon                       45     75     75
+   511 Pansage      Grass        -            Grass Monkey Pokémon               190     50     53
+   512 Simisage     Grass        -            Thorn Monkey Pokémon                75     75     98
+   540 Sewaddle     Bug          Grass        Sewing Pokémon                     255     45     53
+   541 Swadloon     Bug          Grass        Leaf-Wrapped Pokémon               120     55     63
+   542 Leavanny     Bug          Grass        Nurturing Pokémon                   45     75    103
+   546 Cottonee     Grass        Fairy        Cotton Puff Pokémon                190     40     27
+   547 Whimsicott   Grass        Fairy        Windveiled Pokémon                  75     60     67
+   548 Petilil      Grass        -            Bulb Pokémon                       190     45     35
+   549 Lilligant    Grass        -            Flowering Pokémon                   75     70     60
+   556 Maractus     Grass        -            Cactus Pokémon                     255     75     86
+   585 Deerling     Normal       Grass        Season Pokémon                     190     60     60
+   586 Sawsbuck     Normal       Grass        Season Pokémon                      75     80    100
+   590 Foongus      Grass        Poison       Mushroom Pokémon                   190     69     55
+   591 Amoonguss    Grass        Poison       Mushroom Pokémon                    75    114     85
+   597 Ferroseed    Grass        Steel        Thorn Seed Pokémon                 255     44     50
+   598 Ferrothorn   Grass        Steel        Thorn Pod Pokémon                   90     74     94
+   640 Virizion     Grass        Fighting     Grassland Pokémon                    3     91     90
+   650 Chespin      Grass        -            Spiky Nut Pokémon                   45     56     61
+   651 Quilladin    Grass        -            Spiny Armor Pokémon                 45     61     78
+   652 Chesnaught   Grass        Fighting     Spiny Armor Pokémon                 45     88    107
+   672 Skiddo       Grass        -            Mount Pokémon                      200     66     65
+   673 Gogoat       Grass        -            Mount Pokémon                       45    123    100
+   708 Phantump     Ghost        Grass        Stump Pokémon                      120     43     70
+   709 Trevenant    Ghost        Grass        Elder Tree Pokémon                  60     85    110
+   710 Pumpkaboo    Ghost        Grass        Pumpkin Pokémon                    120     49     66
+   711 Gourgeist    Ghost        Grass        Pumpkin Pokémon                     60     65     90
+   722 Rowlet       Grass        Flying       Grass Quill Pokémon                 45     68     55
+   723 Dartrix      Grass        Flying       Blade Quill Pokémon                 45     78     75
+   724 Decidueye    Grass        Ghost        Arrow Quill Pokémon                 45     78    107
+   753 Fomantis     Grass        -            Sickle Grass Pokémon               190     40     55
+   754 Lurantis     Grass        -            Bloom Sickle Pokémon                75     70    105
+   755 Morelull     Grass        Fairy        Illuminating Pokémon               190     40     35
+   756 Shiinotic    Grass        Fairy        Illuminating Pokémon                75     60     45
+   761 Bounsweet    Grass        -            Fruit Pokémon                      235     42     30
+   762 Steenee      Grass        -            Fruit Pokémon                      120     52     40
+   763 Tsareena     Grass        -            Fruit Pokémon                       45     72    120
+   781 Dhelmise     Ghost        Grass        Sea Creeper Pokémon                 25     70    131
+   787 Tapu Bulu    Grass        Fairy        Land Spirit Pokémon                  3     70    130
+   798 Kartana      Grass        Steel        Drawn Sword Pokémon                255     59    181
+
+  97 record(s) selected.
+
+
+INSERT INTO Trainer (id, name, gender) VALUES (1, 'foo', 'M')
+DB20000I  The SQL command completed successfully.
+
+INSERT INTO OwnedPokemon (trainer_id, pkmn_id, nickname, in_team, m1, ability) VALUES (1, 1, 'bar', True, 'Tackle', 'Overgrow')
+DB20000I  The SQL command completed successfully.
+
+INSERT INTO OwnedPokemon (trainer_id, pkmn_id, nickname, in_team, m1, ability) VALUES (1, 1, 'bar2', False, 'Tackle', 'Overgrow')
+DB20000I  The SQL command completed successfully.
+
+SELECT trainer_id, nickname, Pokemon.name as name, m1, ability FROM OwnedPokemon JOIN Pokemon ON OwnedPokemon.pkmn_id=Pokemon.id WHERE trainer_id=1 AND in_team=True
+
+TRAINER_ID  NICKNAME     NAME         M1                   ABILITY     
+----------- ------------ ------------ -------------------- ------------
+          1 bar          Bulbasaur    Tackle               Overgrow    
+
+  1 record(s) selected.
+
+
+SELECT trainer_id, nickname, Pokemon.name as name, m1, ability FROM OwnedPokemon JOIN Pokemon ON OwnedPokemon.pkmn_id=Pokemon.id WHERE trainer_id=1 AND in_team=False
+
+TRAINER_ID  NICKNAME     NAME         M1                   ABILITY     
+----------- ------------ ------------ -------------------- ------------
+          1 bar2         Bulbasaur    Tackle               Overgrow    
+
+  1 record(s) selected.
+
+
+SELECT m1, m2, m3, m4, ability, nickname FROM OwnedPokemon
+
+M1                   M2                   M3                   M4                   ABILITY      NICKNAME    
+-------------------- -------------------- -------------------- -------------------- ------------ ------------
+Tackle               -                    -                    -                    Overgrow     bar         
+Tackle               -                    -                    -                    Overgrow     bar2        
+
+  2 record(s) selected.
+
+
+Update OwnedPokemon Set m1 = 'Seed Bomb', ability = 'Chlorophyll', nickname='bar3' WHERE nickname = 'bar'
+DB20000I  The SQL command completed successfully.
+
+Select nickname, m1, ability FROM OwnedPokemon WHERE nickname ='bar3'
+
+NICKNAME     M1                   ABILITY     
+------------ -------------------- ------------
+bar3         Seed Bomb            Chlorophyll 
+
+  1 record(s) selected.
+
+
+Update OwnedPokemon Set in_team = False WHERE nickname = 'bar3'
+DB20000I  The SQL command completed successfully.
+
+Select nickname from OwnedPokemon WHERE in_team = False
+
+NICKNAME    
+------------
+bar3        
+bar2        
+
+  2 record(s) selected.
+
+
+DELETE FROM Trainer WHERE name='foo'
+DB20000I  The SQL command completed successfully.
+

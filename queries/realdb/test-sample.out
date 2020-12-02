@@ -1,0 +1,10 @@
+INSERT INTO Trainer (name, gender) VALUES ('foo', 'M')
+DB20000I  The SQL command completed successfully.
+
+INSERT INTO OwnedPokemon (trainer_id, pkmn_id, nickname, in_team, m1, ability) VALUES (1, 1, 'bar', True, 'Tackle', 'Overgrow')
+DB21034E  The command was processed as an SQL statement because it was not a 
+valid Command Line Processor command.  During SQL processing it returned:
+SQL0530N  The insert or update value of the FOREIGN KEY 
+"CELEWIS.OWNEDPOKEMON.SQL200309173536490" is not equal to any value of the 
+parent key of the parent table.  SQLSTATE=23503
+
